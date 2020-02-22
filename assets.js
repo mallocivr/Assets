@@ -1,6 +1,6 @@
-function window() {
-    let window = document.createElement('a-entity');
-    window.setAttribute('id', 'window');
+function windowEntity() {
+    let windowEnt = document.createElement('a-entity');
+    windowEnt.setAttribute('id', 'window');
     
     let windowInner = document.createElement('a-entity');
     windowInner.setAttribute('id', 'window-inner-frame');
@@ -67,9 +67,9 @@ function window() {
     windowOuter.appendChild(boxLeft);
     windowOuter.appendChild(boxRight);
 
-    window.addEventListener('loaded', function () {
+    windowEntity.addEventListener('loaded', function () {
         console.log('window is in');
     });
 
-    return window;
+    return windowEnt;
 }
