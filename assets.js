@@ -73,3 +73,69 @@ function windowEntity() {
 
     return windowEnt;
 }
+
+//hexagonal outline-frame (without fill)
+function hex1frameEntity() {
+    let pframeEnt = document.createElement('a-entity');
+    pframeEnt.setAttribute('id', 'frame1');
+    pframeEnt.setAttribute('geometry', {primitive: 'torus', radius: 0.2, radiusTubular: 0.009, segmentsRadial:3, segmentsTubular:6}, true);
+    //pframeEnt.object3D.scale.set(1, 1, 1);
+
+    // hex1frameEntity.addEventListener('loaded', function () {
+    //     console.log('hex frame1 is in');
+    // });
+
+    return pframeEnt;
+}
+
+//hexagonal tile-frame (filled)
+function hex2frameEntity() {
+    let pframeEnt = document.createElement('a-entity');
+    pframeEnt.setAttribute('id', 'frame2');
+    pframeEnt.setAttribute('geometry', {primitive: 'cylinder', radius: 0.2, height: 0.015, segmentsRadial:6}, true);
+    pframeEnt.setAttribute('rotation', '90 0 0');
+    //pframeEnt.object3D.scale.set(1, 1, 1);
+
+    // hex2frameEntity.addEventListener('loaded', function () {
+    //     console.log('hex frame2 is in');
+    // });
+
+    return pframeEnt;
+}
+
+//pedestal
+function pedestalEntity() {
+
+    let pedestalEnt = document.createElement('a-entity');
+    pedestalEnt.setAttribute('id', 'pedestal');
+    pedestalEnt.setAttribute('geometry', {primitive: 'cylinder', radius: 0.2, height: 1.5, segmentsRadial:6, segmentsHeight: 2}, true);
+    pedestalEnt.setAttribute('material', {shader: 'flat'});
+    // const pedestal = new THREE.CylinderGeometry(radius, radius, height, sides, heightSegments, true);
+    // const material = new THREE.MeshNormalMaterial({ flatShading: true });
+    // pedestal.vertices.forEach((vertex, i) => {
+    //     vertex.applyAxisAngle(new THREE.Vector3(0, 0.2, 0), Math.sin(original.y + time * 2) * 1);
+    // });
+    pedestalEnt.setAttribute('skew-faces', '');
+    return pedestalEnt;
+}
+
+function pedestalGeometry() {
+    AFRAME.registerComponent('skew-faces', {
+        dependencies: ['geometry'],
+
+        update: function () {
+
+            var geometry = this.el.getObject3D('mesh').geometry;
+            var mesh = this.el.getObject3D('mesh');
+            var originalVertices = geometry.vertices.map(v => v.clone());
+            geometry.vertices.forEach((vertex, i) => {
+                const original = originalVertices[i];
+
+                vertex.copy(original);
+                vertex.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.sin(vertex.y + 1.6 * 2.05));
+            });
+            geometry.verticesNeedUpdate = true;
+            this.geometry = geometry;
+        }
+    });
+}
