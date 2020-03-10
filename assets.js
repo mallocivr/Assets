@@ -121,21 +121,26 @@ function pedestalEntity() {
 
 function pedestalGeometry() {
     AFRAME.registerComponent('skew-faces', {
-        dependencies: ['geometry'],
-
         update: function () {
-
-            var geometry = this.el.getObject3D('mesh').geometry;
-            var mesh = this.el.getObject3D('mesh');
-            var originalVertices = geometry.vertices.map(v => v.clone());
-            geometry.vertices.forEach((vertex, i) => {
-                const original = originalVertices[i];
-
-                vertex.copy(original);
-                vertex.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.sin(vertex.y + 1.6 * 2.05));
-            });
-            geometry.verticesNeedUpdate = true;
-            this.geometry = geometry;
+          var geometry = new THREE.Geometry();
+          //console.log(geometry);
+          let bufferGeometry = this.el.getObject3D('mesh').geometry;
+          geometry = new THREE.Geometry().fromBufferGeometry( bufferGeometry );
+          //console.log(geometry.vertices);
+          var vertices = geometry.vertices;
+          //console.log(vertices);
+          const originalVertices = vertices.map(v => v.clone());
+          //console.log(originalVertices);
+          vertices.forEach((vertex, i) => {
+            const original = originalVertices[i];
+            //console.log(vertex)
+            vertex.copy(original);
+            vertex.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.sin(vertex.y + 1.6 * 2.05));
+            //console.log(vertex)
+          });
+          geometry.verticesNeedUpdate = true;
+          //console.log(geometry)
+          this.el.getObject3D('mesh').geometry = geometry;
         }
     });
 }
