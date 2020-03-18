@@ -112,7 +112,7 @@ class Assets
     }
     
     //pedestal
-    pedestalEntity() {
+    pedestalEntity(matSrc) {
     
         let pedestalEnt = document.createElement('a-entity');
         let pedestal = document.createElement('a-entity');
@@ -120,7 +120,7 @@ class Assets
         pedestal.setAttribute('id', 'pedestal');
         pedestal.setAttribute('geometry', {primitive: 'cylinder', radius: 0.2, height: 1.5, segmentsRadial:6, segmentsHeight: 2}, true);
         pedestal.setAttribute('position', {x: 0, y: 0.75, z: 0})
-        pedestal.setAttribute('material', {shader: 'flat'});
+        pedestal.setAttribute('material', {shader: 'flat', src: matSrc});
         // const pedestal = new THREE.CylinderGeometry(radius, radius, height, sides, heightSegments, true);
         // const material = new THREE.MeshNormalMaterial({ flatShading: true });
         // pedestal.vertices.forEach((vertex, i) => {
