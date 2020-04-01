@@ -32,10 +32,11 @@ AFRAME.registerComponent('skewedpedestal', {
         let el = this.el;
         let data = this.data;
 
-        let geometry = new THREE.CylinderGeometry( 0.2, 1.5, 6, 2 ); 
+        let geometry = new THREE.CylinderGeometry( 0.2, 0.15, 1.5, 6, 2 ); 
         let texture = new THREE.TextureLoader().load(data.src);
         let material = new THREE.MeshStandardMaterial( {
-			map: texture
+            map: texture,
+            flatShading: true
         } );
 
         let mesh = new THREE.Mesh(geometry, material);
