@@ -21,6 +21,9 @@ AFRAME.registerComponent('broadpedestal', {
         el.setObject3D('mesh', mesh1);
         mesh2.position.set(0, -0.25, 0);
         el.object3D.add(mesh2);
+    },
+    tick: function() {
+        this.el.object3D.rotation.y += 0.006;
     }
 });
 
